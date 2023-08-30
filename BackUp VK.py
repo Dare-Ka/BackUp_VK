@@ -54,7 +54,8 @@ class VK:
                os.mkdir('images_json')
            with open('images_json/%s' % 'JSON_DATA.json', 'w') as file:
                file.write(info_file)
-           return f'Скачано {len(names)} фото из ВК'
+           print(f'Скачано {len(names)} фото из ВК')   
+           return links
        else:
            return 'Возникла ошибка. Проверьте подключение к интернету или корректность ввода токена'
 
@@ -63,13 +64,13 @@ class Yandex:
     def __init__(self, token):
         self.token = token_Yandex
 
-    def upload_files(self, path, replace=False):
+    def upload_files(self, links: list path, replace=False):
        URL = 'https://cloud-api.yandex.net/v1/disk/resources'
        self.headers = {'Content-Type': 'application/json',
                        'Accept': 'application/json',
                        'Authorization': f'OAuth {self.token}'}
        get_href = requests.put(f'{URL}?path={path}', headers=self.headers)
-       if 200<= get_href.status_code < 300:
+       if 200 <= get_href.status_code < 300:
            count = 0
            with tqdm(range(len(links))) as progress:
                for name, size_type, link in links:
@@ -96,8 +97,7 @@ token_Yandex = os.getenv('token_Yandex')
 user_id = str(input('Введите ID VK: '))
 vk = VK(access_token, user_id)
 yandex = Yandex(token_Yandex)
-print(vk.get_user_photos())
-print(yandex.upload_files(str(input('Введите название папки: '))))
+print(yandex.upload_files(vk.get_user_photos()str(input('Введите название папки: '))))
 
 
 
