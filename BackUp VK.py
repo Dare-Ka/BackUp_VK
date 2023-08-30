@@ -97,7 +97,7 @@ token_Yandex = os.getenv('token_Yandex')
 user_id = str(input('Введите ID VK: '))
 vk = VK(access_token, user_id)
 yandex = Yandex(token_Yandex)
-print(yandex.upload_files(vk.get_user_photos()str(input('Введите название папки: '))))
+print(yandex.upload_files(vk.get_user_photos(), str(input('Введите название папки: '))))
 
 
 
