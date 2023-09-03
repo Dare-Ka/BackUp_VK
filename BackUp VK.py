@@ -44,7 +44,6 @@ class VK:
                   names.append(f'{item["likes"]["count"]}_{datetime.utcfromtimestamp(item["date"]).strftime("%Y-%m-%d")}')
               photos_links.append(item['sizes'][-1]['url'])
               size_types.append(item['sizes'][-1]['type'])
-           global links
            links = list(zip(names, size_types, photos_links))
            for name, size_type, link in links:
                name_dict = {'file_name': f'{name}.jpg', 'size': size_type}
@@ -64,7 +63,7 @@ class Yandex:
     def __init__(self, token):
         self.token = token_Yandex
 
-    def upload_files(self, links: list path, replace=False):
+    def upload_files(self, links: list, path, replace=False):
        URL = 'https://cloud-api.yandex.net/v1/disk/resources'
        self.headers = {'Content-Type': 'application/json',
                        'Accept': 'application/json',
